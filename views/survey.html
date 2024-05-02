@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+</head>
+<body>
+    <h1>Midterm Survey</h1><br>
+    <form action="#" method="post">
+        <!-- name -->
+        <div>
+            <label for="user-name" class="control-label">Name</label>
+            <input type="text" name="user-name" id="user-name">
+        </div><br>
+        <!-- checkboxes -->
+        <div>
+            <label>Check all that apply:</label><br>
+            <repeat group="{{@checks}}" value="{{@check}}">
+                <label><input type="checkbox" name="box-check" value="{{ @check }}">{{ @check }}</label><br>
+            </repeat>
+        </div><br>
+
+        <!-- submit button -->
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</body>
+</html>
