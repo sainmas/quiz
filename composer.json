@@ -1,0 +1,13 @@
+{
+  "name": "sainmasg/328/quiz",
+  "authors": [
+    {
+      "name": "Mason Sain",
+      "email": "sain.mason@student.greenriver.edu"
+    }
+  ],
+  "require":
+  {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
