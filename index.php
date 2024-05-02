@@ -23,41 +23,56 @@ $f3->route('GET /', function() {
 
 // Define the survey route
 $f3->route('GET|POST /survey', function($f3) {
+    session_start();
 
     //Add the variables
     $name = "";
     $checkboxes = "";
-
-    //If the page has been POSTed
-    if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-        if (isset($_POST['name'])) {
-            $name = $_POST['name'];
-        }
-        if (isset($_POST['checks'])) {
-            $checkboxes = $_POST['checks'];
-        }
-
-        //Add the data to the session array
-        $f3->set('SESSION.name', $name);
-        $f3->set('SESSION.checks', $checkboxes);
-
-        // Reroute to summary page
-        $f3->reroute('summary');
-    }
 
     // Get the data from the model
     // add it to the F3 hive
     $checks = GetChecks();
     $f3->set('checks', $checks);
 
+    //If the page has been POSTed
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        if (isset($_POST['user-name'])) {
+            $name = $_POST['user-name'];
+        }
+        for ($i = 0; $i < count($checks); $i++) {
+            $replaced = str_replace(" ", "_", $checks[$i]);
+            if(isset($_POST["$replaced"])) {
+                if ($checkboxes == "") {
+                    $checkboxes = $checks[$i];
+                } else {
+                    $checkboxes = $checkboxes . ", " . $checks[$i];
+                }
+            }
+        }
+
+        //Add the data to the session array
+        $f3->set('SESSION.userName', $name);
+        $f3->set('SESSION.checkAllApplied', $checkboxes);
+
+        // Reroute to summary page
+        $f3->reroute('summary');
+    }
+
+
     // Render a view page
     $view = new Template();
     echo $view->render('views/survey.html');
 });
 
+// Define the summary route
+$f3->route('GET|POST /summary', function($f3) {
+    session_start();
 
-
+    // Render a view page
+    $view = new Template();
+    echo $view->render('views/summary.html');
+});
 
 // Run Fat-Free
 $f3->run();

@@ -12,11 +12,12 @@
             <label for="user-name" class="control-label">Name</label>
             <input type="text" name="user-name" id="user-name">
         </div><br>
+
         <!-- checkboxes -->
         <div>
             <label>Check all that apply:</label><br>
             <repeat group="{{@checks}}" value="{{@check}}">
-                <label><input type="checkbox" name="box-check" value="{{ @check }}">{{ @check }}</label><br>
+                <label><input type="checkbox" name="{{ @check }}" value="{{ @check }}">{{ @check }}</label><br>
             </repeat>
         </div><br>
 
